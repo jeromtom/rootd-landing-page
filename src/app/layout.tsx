@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   description: "Transform your dental practice with Rootd's comprehensive practice management software. Secure EHR, multi-chair scheduling, digital clinical workflow, and seamless billing - all DPDP compliant.",
   keywords: "dental practice management, EHR, dental software, India, DPDP compliant, dental scheduling, clinical workflow",
   authors: [{ name: "Rootd Team" }],
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
   openGraph: {
     title: "Rootd - The Modern Operating System for Indian Dental Clinics",
     description: "Transform your dental practice with Rootd's comprehensive practice management software. Secure EHR, multi-chair scheduling, digital clinical workflow, and seamless billing.",

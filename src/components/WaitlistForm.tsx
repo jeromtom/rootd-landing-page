@@ -105,24 +105,24 @@ export default function WaitlistForm() {
   }
 
   return (
-    <section id="waitlist-form" className="py-12 sm:py-16 lg:py-20 px-4 bg-white">
+    <section id="waitlist-form" className="py-8 sm:py-12 lg:py-20 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12"
+          className="text-center mb-6 sm:mb-8 lg:mb-12"
         >
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl sm:text-2xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Ready to Transform Your Multi-Specialty Practice?
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Join the waitlist and be among the first to experience the future of multi-dentist dental practice management.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
           {/* Form */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -131,14 +131,14 @@ export default function WaitlistForm() {
             viewport={{ once: true }}
           >
             <Card className="shadow-lg">
-              <CardHeader className="p-4 sm:p-6">
-                <CardTitle className="text-xl sm:text-2xl text-center">Join Our Waitlist</CardTitle>
-                <p className="text-center text-gray-600 text-sm sm:text-base">
+              <CardHeader className="p-3 sm:p-4 lg:p-6">
+                <CardTitle className="text-lg sm:text-xl lg:text-2xl text-center">Join Our Waitlist</CardTitle>
+                <p className="text-center text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">
                   Get early access to Rootd and a personalized demo tailored to your practice needs
                 </p>
               </CardHeader>
-              <CardContent className="p-4 sm:p-6">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-3 sm:space-y-4 lg:space-y-6">
                   <div>
                     <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
                       Clinic Name *
@@ -240,10 +240,10 @@ export default function WaitlistForm() {
                   </div>
 
                   <div>
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1 sm:mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">
                       Primary Specialties (Optional)
                     </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                       {[
                         "General Dentistry",
                         "Orthodontics", 
@@ -254,7 +254,7 @@ export default function WaitlistForm() {
                         "Endodontics",
                         "Laser Dentistry"
                       ].map((specialty) => (
-                        <label key={specialty} className="flex items-center space-x-2">
+                        <label key={specialty} className="flex items-center space-x-2 p-2 sm:p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
                           <input
                             type="checkbox"
                             checked={selectedSpecialties.includes(specialty)}
@@ -265,9 +265,9 @@ export default function WaitlistForm() {
                                 setSelectedSpecialties(selectedSpecialties.filter(s => s !== specialty));
                               }
                             }}
-                            className="rounded border-gray-300"
+                            className="rounded border-gray-300 w-4 h-4 sm:w-5 sm:h-5"
                           />
-                          <span className="text-xs sm:text-sm text-gray-700">{specialty}</span>
+                          <span className="text-xs sm:text-sm text-gray-700 leading-tight">{specialty}</span>
                         </label>
                       ))}
                     </div>
@@ -287,7 +287,7 @@ export default function WaitlistForm() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 sm:py-3 text-sm sm:text-base"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 sm:py-4 text-sm sm:text-base font-semibold min-h-[48px]"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Joining Waitlist..." : "Join Waitlist"}
@@ -303,44 +303,44 @@ export default function WaitlistForm() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="space-y-6 sm:space-y-8 mt-8 lg:mt-0"
+            className="space-y-4 sm:space-y-6 lg:space-y-8 mt-6 sm:mt-8 lg:mt-0"
           >
             <div>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">
+              <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 lg:mb-6">
                 Why Join Our Waitlist?
               </h3>
-              <div className="space-y-4 sm:space-y-6">
-                <div className="flex items-start space-x-3 sm:space-x-4">
+              <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+                <div className="flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-3 sm:p-4 bg-blue-50 rounded-lg">
                   <div className="bg-blue-100 p-2 rounded-lg flex-shrink-0">
-                    <Calendar className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-blue-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Early Access & Demo</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm">
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                       Get early access to Rootd and a personalized demo tailored to your multi-specialty practice.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 sm:space-x-4">
+                <div className="flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-3 sm:p-4 bg-green-50 rounded-lg">
                   <div className="bg-green-100 p-2 rounded-lg flex-shrink-0">
-                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-green-600" />
+                    <Phone className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-green-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Priority Support</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm">
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                       Dedicated support and training for your entire dental team during implementation.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 sm:space-x-4">
+                <div className="flex items-start space-x-2 sm:space-x-3 lg:space-x-4 p-3 sm:p-4 bg-purple-50 rounded-lg">
                   <div className="bg-purple-100 p-2 rounded-lg flex-shrink-0">
-                    <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
+                    <Mail className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-purple-600" />
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Founding Member Benefits</h4>
-                    <p className="text-gray-600 text-xs sm:text-sm">
+                    <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                       Special pricing, priority feature requests, and input on product development.
                     </p>
                   </div>
@@ -348,8 +348,8 @@ export default function WaitlistForm() {
               </div>
             </div>
 
-            <div className="bg-blue-50 p-4 sm:p-6 rounded-lg">
-              <h4 className="font-bold text-blue-900 mb-3 text-sm sm:text-base">What to Expect</h4>
+            <div className="bg-blue-50 p-3 sm:p-4 lg:p-6 rounded-lg">
+              <h4 className="font-bold text-blue-900 mb-2 sm:mb-3 text-sm sm:text-base">What to Expect</h4>
               <ul className="space-y-1 sm:space-y-2 text-blue-800 text-xs sm:text-sm">
                 <li>• Personalized 30-minute demo for your team</li>
                 <li>• Customized setup for your multi-specialty practice</li>

@@ -79,5 +79,47 @@
       width: 100%;
       max-width: 100%;
     }
+    
+    /* Improve mobile scrolling */
+    * {
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Better mobile tap targets */
+    button, a, input, select, textarea, [role="button"] {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      touch-action: manipulation;
+    }
+    
+    /* Improve text rendering on mobile */
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+    
+    /* Better mobile form styling */
+    input, textarea, select {
+      font-size: 16px; /* Prevents zoom on iOS */
+      border-radius: 8px;
+    }
+    
+    /* Improve mobile card interactions */
+    .card, [class*="card"] {
+      touch-action: manipulation;
+    }
+    
+    /* Better mobile spacing */
+    .space-y-1 > * + * {
+      margin-top: 0.25rem;
+    }
+    
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    .space-y-3 > * + * {
+      margin-top: 0.75rem;
+    }
   }
 }
