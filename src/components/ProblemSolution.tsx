@@ -75,7 +75,7 @@ export default function ProblemSolution() {
                 <div>
                   <h4 className="font-semibold text-red-800 mb-2">Poor Patient Experience</h4>
                   <p className="text-red-700 text-sm">
-                    Long wait times, manual check-ins, and outdated processes that don't reflect your modern clinic's quality.
+                    Long wait times, manual check-ins, and outdated processes that don&apos;t reflect your modern clinic&apos;s quality.
                   </p>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function ProblemSolution() {
                 <div>
                   <h4 className="font-semibold text-green-800 mb-2">Premium Patient Experience</h4>
                   <p className="text-green-700 text-sm">
-                    Streamlined check-ins, automated reminders, and modern digital workflows that reflect your clinic's professional standards.
+                    Streamlined check-ins, automated reminders, and modern digital workflows that reflect your clinic&apos;s professional standards.
                   </p>
                 </div>
               </div>
