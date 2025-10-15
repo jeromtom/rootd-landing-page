@@ -5,8 +5,8 @@ import { X, CheckCircle, AlertTriangle, Clock, FileText, DollarSign } from "luci
 
 export default function ProblemSolution() {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 bg-gray-50 w-full">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export default function ProblemSolution() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start lg:items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-start lg:items-center">
           {/* Problem Side */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}

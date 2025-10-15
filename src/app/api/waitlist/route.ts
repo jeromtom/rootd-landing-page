@@ -30,12 +30,13 @@ export async function POST(request: NextRequest) {
     // Log the submission
     console.log('New waitlist submission:', waitlistData);
     
-    // Add to Google Sheets
+    // Add to Google Sheets (if configured)
     const sheetsResult = await addToGoogleSheets(waitlistData);
     
     if (!sheetsResult.success) {
       console.error('Failed to add to Google Sheets:', sheetsResult.error);
       // Continue anyway - don't fail the request if Sheets fails
+      // In development, this is expected if Google Sheets is not configured
     }
     
     // In a real application, you would also:

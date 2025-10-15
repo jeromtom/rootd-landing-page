@@ -15,21 +15,35 @@ interface WaitlistData {
 
 export async function addToGoogleSheets(data: WaitlistData) {
   try {
+    // Check if Google Sheets is configured
+    if (!process.env.GOOGLE_SHEETS_PRIVATE_KEY || !process.env.GOOGLE_SHEETS_CLIENT_EMAIL || !process.env.GOOGLE_SHEETS_SHEET_ID) {
+      console.log('Google Sheets not configured, skipping Sheets integration');
+      console.log('Waitlist data:', JSON.stringify(data, null, 2));
+      return { success: true, message: 'Google Sheets not configured' };
+    }
+
+    // Try using the service account JSON directly
+    const serviceAccount = {
+      type: "service_account",
+      project_id: process.env.GOOGLE_SHEETS_PROJECT_ID || "rootd-475217",
+      private_key_id: process.env.GOOGLE_SHEETS_PRIVATE_KEY_ID || "dummy",
+      private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY,
+      client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
+      client_id: process.env.GOOGLE_SHEETS_CLIENT_ID || "dummy",
+      auth_uri: "https://accounts.google.com/o/oauth2/auth",
+      token_uri: "https://oauth2.googleapis.com/token",
+      auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+      client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.GOOGLE_SHEETS_CLIENT_EMAIL)}`
+    };
+
     // Initialize Google Sheets API
     const auth = new google.auth.GoogleAuth({
-      credentials: {
-        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-        client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-      },
+      credentials: serviceAccount,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
 
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = process.env.GOOGLE_SHEETS_SHEET_ID;
-
-    if (!spreadsheetId) {
-      throw new Error('Google Sheets ID not configured');
-    }
 
     // Prepare the row data
     const rowData = [
@@ -90,6 +104,16 @@ export async function addToGoogleSheets(data: WaitlistData) {
     return { success: true };
   } catch (error) {
     console.error('Error adding to Google Sheets:', error);
+    
+    // Handle specific OpenSSL errors
+    if (error instanceof Error && error.message.includes('DECODER routines')) {
+      console.error('OpenSSL decoder error - this is usually due to private key format issues');
+      return { 
+        success: false, 
+        error: 'Private key format error. Please check your GOOGLE_SHEETS_PRIVATE_KEY environment variable.' 
+      };
+    }
+    
     return { success: false, error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }

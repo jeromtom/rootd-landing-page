@@ -44,7 +44,7 @@ export default function WaitlistForm() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('https://rootd-waitlist-api.dev-jeromtom.workers.dev/waitlist', {
+      const response = await fetch('/api/waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,11 +58,13 @@ export default function WaitlistForm() {
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        throw new Error('Failed to submit form');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to submit form');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      alert('There was an error submitting your form. Please try again.');
+      const errorMessage = error instanceof Error ? error.message : 'There was an error submitting your form. Please try again.';
+      alert(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
