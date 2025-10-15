@@ -1,0 +1,14 @@
+name = "rootd-waitlist-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Route configuration - this will handle requests to the worker subdomain
+# We'll use the default worker subdomain for now
+
+# Environment variables (secrets will be set via wrangler secret put)
+[vars]
+GOOGLE_SHEETS_SHEET_ID = ""
+
+# Secrets (set these via: wrangler secret put SECRET_NAME)
+# GOOGLE_SHEETS_CLIENT_EMAIL
+# GOOGLE_SHEETS_PRIVATE_KEY

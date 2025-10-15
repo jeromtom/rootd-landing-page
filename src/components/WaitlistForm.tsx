@@ -44,7 +44,7 @@ export default function WaitlistForm() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/waitlist', {
+      const response = await fetch('https://rootd-waitlist-api.dev-jeromtom.workers.dev/waitlist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
