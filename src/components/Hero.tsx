@@ -100,12 +100,13 @@ export default function Hero() {
                     <div 
                       key={i} 
                       className={`h-12 rounded-lg flex items-center justify-center text-xs font-medium ${
-                        i % 5 === 0 ? 'bg-blue-100 text-blue-700' : 
+                        i % 8 === 0 ? 'bg-blue-100 text-blue-700' : 
                         i % 7 === 0 ? 'bg-green-100 text-green-700' :
+                        i % 6 === 0 ? 'bg-purple-100 text-purple-700' :
                         'bg-gray-100 text-gray-500'
                       }`}
                     >
-                      {i % 5 === 0 ? 'Dr. Alina' : i % 7 === 0 ? 'Dr. Priya' : ''}
+                      {i % 8 === 0 ? 'Dr. Alina' : i % 7 === 0 ? 'Dr. Priya' : i % 6 === 0 ? 'Dr. Annet' : ''}
                     </div>
                   ))}
                 </div>

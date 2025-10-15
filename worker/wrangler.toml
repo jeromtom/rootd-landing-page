@@ -7,7 +7,7 @@ compatibility_date = "2024-01-01"
 
 # Environment variables (secrets will be set via wrangler secret put)
 [vars]
-GOOGLE_SHEETS_SHEET_ID = ""
+GOOGLE_SHEETS_SHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
 
 # Secrets (set these via: wrangler secret put SECRET_NAME)
 # GOOGLE_SHEETS_CLIENT_EMAIL
