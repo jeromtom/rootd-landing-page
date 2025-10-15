@@ -1,0 +1,364 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CheckCircle, Mail, Phone, Calendar } from "lucide-react";
+
+const formSchema = z.object({
+  clinicName: z.string().min(2, "Clinic name must be at least 2 characters"),
+  contactName: z.string().min(2, "Contact name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(10, "Please enter a valid phone number"),
+  chairs: z.string().min(1, "Please select number of chairs"),
+  dentists: z.string().min(1, "Please select number of dentists"),
+  specialties: z.array(z.string()).optional(),
+  message: z.string().optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+export default function WaitlistForm() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
+
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...data,
+          specialties: selectedSpecialties,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      alert('There was an error submitting your form. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  if (isSubmitted) {
+    return (
+      <section id="waitlist-form" className="py-20 px-4 bg-white">
+        <div className="max-w-2xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="bg-green-100 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+              <CheckCircle className="h-10 w-10 text-green-600" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Thank You for Joining Our Waitlist!
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              We&apos;ve received your information and will be in touch soon to schedule your personalized demo. 
+              Our team is excited to show you how Rootd can transform your multi-specialty dental practice.
+            </p>
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h3 className="font-semibold text-blue-900 mb-2">What happens next?</h3>
+              <div className="text-left space-y-2 text-blue-800">
+                <p>• We&apos;ll review your practice requirements</p>
+                <p>• Schedule a personalized demo within 24 hours</p>
+                <p>• Show you how Rootd fits your specific needs</p>
+                <p>• Answer any questions about implementation</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="waitlist-form" className="py-20 px-4 bg-white">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Ready to Transform Your Multi-Specialty Practice?
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Join the waitlist and be among the first to experience the future of multi-dentist dental practice management.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <Card className="shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-2xl text-center">Join Our Waitlist</CardTitle>
+                <p className="text-center text-gray-600">
+                  Get early access to Rootd and a personalized demo tailored to your practice needs
+                </p>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Clinic Name *
+                    </label>
+                    <Input
+                      {...register("clinicName")}
+                      placeholder="Enter your clinic name"
+                      className={errors.clinicName ? "border-red-500" : ""}
+                    />
+                    {errors.clinicName && (
+                      <p className="text-red-500 text-sm mt-1">{errors.clinicName.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Contact Name *
+                    </label>
+                    <Input
+                      {...register("contactName")}
+                      placeholder="Your full name"
+                      className={errors.contactName ? "border-red-500" : ""}
+                    />
+                    {errors.contactName && (
+                      <p className="text-red-500 text-sm mt-1">{errors.contactName.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Email Address *
+                    </label>
+                    <Input
+                      {...register("email")}
+                      type="email"
+                      placeholder="your.email@clinic.com"
+                      className={errors.email ? "border-red-500" : ""}
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Phone Number *
+                    </label>
+                    <Input
+                      {...register("phone")}
+                      placeholder="+91 98765 43210"
+                      className={errors.phone ? "border-red-500" : ""}
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Number of Dental Chairs *
+                    </label>
+                    <Select onValueChange={(value) => setValue("chairs", value)}>
+                      <SelectTrigger className={errors.chairs ? "border-red-500" : ""}>
+                        <SelectValue placeholder="Select number of chairs" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1 Chair</SelectItem>
+                        <SelectItem value="2">2 Chairs</SelectItem>
+                        <SelectItem value="3">3 Chairs</SelectItem>
+                        <SelectItem value="4">4 Chairs</SelectItem>
+                        <SelectItem value="5+">5+ Chairs</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.chairs && (
+                      <p className="text-red-500 text-sm mt-1">{errors.chairs.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Number of Dentists/Specialists *
+                    </label>
+                    <Select onValueChange={(value) => setValue("dentists", value)}>
+                      <SelectTrigger className={errors.dentists ? "border-red-500" : ""}>
+                        <SelectValue placeholder="Select number of dentists" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">1 Dentist</SelectItem>
+                        <SelectItem value="2">2 Dentists</SelectItem>
+                        <SelectItem value="3">3 Dentists</SelectItem>
+                        <SelectItem value="4">4 Dentists</SelectItem>
+                        <SelectItem value="5">5 Dentists</SelectItem>
+                        <SelectItem value="6+">6+ Dentists</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {errors.dentists && (
+                      <p className="text-red-500 text-sm mt-1">{errors.dentists.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Primary Specialties (Optional)
+                    </label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        "General Dentistry",
+                        "Orthodontics", 
+                        "Dental Implants",
+                        "Pediatric Dentistry",
+                        "Periodontics",
+                        "Aesthetic Dentistry",
+                        "Endodontics",
+                        "Laser Dentistry"
+                      ].map((specialty) => (
+                        <label key={specialty} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedSpecialties.includes(specialty)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedSpecialties([...selectedSpecialties, specialty]);
+                              } else {
+                                setSelectedSpecialties(selectedSpecialties.filter(s => s !== specialty));
+                              }
+                            }}
+                            className="rounded border-gray-300"
+                          />
+                          <span className="text-sm text-gray-700">{specialty}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Additional Message
+                    </label>
+                    <Textarea
+                      {...register("message")}
+                      placeholder="Tell us about your specific needs or questions..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Joining Waitlist..." : "Join Waitlist"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Benefits */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+                Why Join Our Waitlist?
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="bg-blue-100 p-2 rounded-lg">
+                    <Calendar className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Early Access & Demo</h4>
+                    <p className="text-gray-600 text-sm">
+                      Get early access to Rootd and a personalized demo tailored to your multi-specialty practice.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-green-100 p-2 rounded-lg">
+                    <Phone className="h-6 w-6 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Priority Support</h4>
+                    <p className="text-gray-600 text-sm">
+                      Dedicated support and training for your entire dental team during implementation.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  <div className="bg-purple-100 p-2 rounded-lg">
+                    <Mail className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">Founding Member Benefits</h4>
+                    <p className="text-gray-600 text-sm">
+                      Special pricing, priority feature requests, and input on product development.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-blue-50 p-6 rounded-lg">
+              <h4 className="font-bold text-blue-900 mb-3">What to Expect</h4>
+              <ul className="space-y-2 text-blue-800 text-sm">
+                <li>• Personalized 30-minute demo for your team</li>
+                <li>• Customized setup for your multi-specialty practice</li>
+                <li>• Staff training for all dentists and support staff</li>
+                <li>• Early access to new features</li>
+                <li>• Ongoing support and priority updates</li>
+              </ul>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

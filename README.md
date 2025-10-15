@@ -1,36 +1,195 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Rootd Landing Page
+
+A modern, conversion-focused landing page for Rootd - the comprehensive dental practice management software for Indian clinics.
+
+## Features
+
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Modern UI**: Built with shadcn/ui components and Framer Motion animations
+- **Form Handling**: React Hook Form with Zod validation
+- **SEO Optimized**: Meta tags, Open Graph, and structured data
+- **Performance**: Next.js 15 with App Router for optimal performance
+- **Accessibility**: WCAG compliant components
+
+## Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Components**: shadcn/ui
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod
+- **Icons**: Lucide React
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd landing-page
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+### Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+npm start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Vercel (Recommended)
 
-## Deploy on Vercel
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy automatically
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Manual Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npx vercel --prod
+```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/waitlist/route.ts    # API endpoint for form submissions
+│   ├── globals.css              # Global styles
+│   ├── layout.tsx               # Root layout
+│   └── page.tsx                 # Main landing page
+├── components/
+│   ├── ui/                      # shadcn/ui components
+│   ├── Hero.tsx                 # Hero section
+│   ├── ProblemSolution.tsx      # Problem/Solution section
+│   ├── Features.tsx             # Features showcase
+│   ├── Compliance.tsx           # Security & compliance
+│   ├── WaitlistForm.tsx         # Demo request form
+│   └── Footer.tsx               # Footer
+└── lib/
+    └── utils.ts                 # Utility functions
+```
+
+## API Endpoints
+
+### POST /api/waitlist
+
+Handles waitlist form submissions.
+
+**Request Body:**
+```json
+{
+  "clinicName": "string",
+  "contactName": "string", 
+  "email": "string",
+  "phone": "string",
+  "chairs": "string",
+  "message": "string (optional)"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Thank you for your interest!"
+}
+```
+
+## Customization
+
+### Colors
+
+Update the color scheme in `tailwind.config.ts`:
+
+```typescript
+theme: {
+  extend: {
+    colors: {
+      primary: {
+        50: '#eff6ff',
+        500: '#3b82f6',
+        600: '#2563eb',
+        // ... more shades
+      }
+    }
+  }
+}
+```
+
+### Content
+
+- Update text content in component files
+- Modify form fields in `WaitlistForm.tsx`
+- Change contact information in `Footer.tsx`
+
+### Styling
+
+- Global styles in `globals.css`
+- Component-specific styles using Tailwind classes
+- Custom animations in the utilities layer
+
+## SEO
+
+The landing page includes:
+
+- Meta tags for search engines
+- Open Graph tags for social sharing
+- Structured data for rich snippets
+- Semantic HTML structure
+- Optimized images and performance
+
+## Performance
+
+- Next.js 15 with App Router
+- Image optimization
+- Code splitting
+- Lazy loading
+- Minimal JavaScript bundle
+
+## Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile browsers
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is proprietary software for Rootd.
+
+## Support
+
+For questions or support, contact:
+- Email: hello@rootd.in
+- Phone: +91 98765 43210
