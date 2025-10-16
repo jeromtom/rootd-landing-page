@@ -75,6 +75,68 @@ export default function WaitlistForm() {
     }
   };
 
+  const fillTestData = () => {
+    const testData = {
+      clinicName: 'Test Dental Clinic',
+      contactName: 'Dr. John Smith',
+      email: 'test@example.com',
+      phone: '+1234567890',
+      chairs: '3',
+      dentists: '2',
+      specialties: ['General Dentistry', 'Orthodontics'],
+      message: 'This is a test submission for development purposes.'
+    };
+
+    // Fill form fields
+    setValue('clinicName', testData.clinicName);
+    setValue('contactName', testData.contactName);
+    setValue('email', testData.email);
+    setValue('phone', testData.phone);
+    setValue('chairs', testData.chairs);
+    setValue('dentists', testData.dentists);
+    setValue('message', testData.message);
+    setSelectedSpecialties(testData.specialties);
+  };
+
+  const submitTestData = async () => {
+    setIsSubmitting(true);
+    
+    try {
+      const testData = {
+        clinicName: 'Test Dental Clinic',
+        contactName: 'Dr. John Smith',
+        email: 'test@example.com',
+        phone: '+1234567890',
+        chairs: '3',
+        dentists: '2',
+        specialties: ['General Dentistry', 'Orthodontics'],
+        message: 'This is a test submission for development purposes.'
+      };
+
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(testData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Test submission successful:', result);
+        alert('Test data submitted successfully! Check console and Google Sheets.');
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to submit test data');
+      }
+    } catch (error) {
+      console.error('Error submitting test data:', error);
+      alert('Test submission failed: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   if (isSubmitted) {
     return (
     <section id="waitlist-form" className="py-12 sm:py-16 lg:py-20 px-4 bg-white">
@@ -297,6 +359,34 @@ export default function WaitlistForm() {
                   >
                     {isSubmitting ? "Joining Waitlist..." : "Join Waitlist"}
                   </Button>
+
+                  {/* Development Test Buttons - Only show in development */}
+                  {/* {process.env.NODE_ENV === 'development' && (
+                    <div className="mt-4 space-y-2 border-t pt-4">
+                      <p className="text-xs text-gray-500 text-center">Development Tools</p>
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={fillTestData}
+                          className="flex-1 text-xs"
+                        >
+                          Fill Test Data
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={submitTestData}
+                          disabled={isSubmitting}
+                          className="flex-1 text-xs"
+                        >
+                          Submit Test Data
+                        </Button>
+                      </div>
+                    </div>
+                  )} */}
                 </form>
               </CardContent>
             </Card>
