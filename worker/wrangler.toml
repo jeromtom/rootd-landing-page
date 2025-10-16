@@ -2,8 +2,8 @@ name = "rootd-waitlist-api"
 main = "dist/index.js"
 compatibility_date = "2024-01-01"
 
-# Custom domain configuration for rootd.app
-# We'll set up the custom domain after deployment
+# Custom domain configuration for waitlist-api.rootd.app
+# Configure this through Cloudflare dashboard after deployment
 
 # Environment variables (secrets will be set via wrangler secret put)
 [vars]
