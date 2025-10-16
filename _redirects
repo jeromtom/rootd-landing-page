@@ -1,5 +1,5 @@
-# Handle client-side routing
+# Handle client-side routing for Next.js
 /*    /index.html   200
 
-# API redirects to Cloudflare Worker
-/api/waitlist    https://rootd-waitlist-api.dev-jeromtom.workers.dev/api/waitlist    200
+# API routes will be handled by Cloudflare Worker
+/api/waitlist    https://rootd-waitlist-api.your-subdomain.workers.dev/api/waitlist    200
