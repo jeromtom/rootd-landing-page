@@ -269,7 +269,7 @@ export default function WaitlistForm() {
                     </label>
                     <Input
                       {...register("phone")}
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 93834 04844"
                       className={`text-sm sm:text-base ${errors.phone ? "border-red-500" : ""}`}
                     />
                     {errors.phone && (

@@ -219,5 +219,5 @@ This project is proprietary software for Rootd.
 ## Support
 
 For questions or support, contact:
-- Email: hello@rootd.in
-- Phone: +91 98765 43210
+- Email: contact@rootd.app
+- Phone: +91 93834 04844
