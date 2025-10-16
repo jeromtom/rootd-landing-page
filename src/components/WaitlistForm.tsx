@@ -46,7 +46,7 @@ export default function WaitlistForm() {
     try {
       // Use Cloudflare Worker API endpoint
       const apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://api.rootd.app/api/waitlist'
+        ? 'https://rootd-waitlist-api.dev-jeromtom.workers.dev/api/waitlist'
         : '/api/waitlist';
         
       const response = await fetch(apiUrl, {
