@@ -70,7 +70,7 @@ async function addToGoogleSheets(data: WaitlistData, env: any) {
       throw new Error(`Failed to authenticate with Google: ${authResponse.status} - ${errorText}`);
     }
 
-    const authData = await authResponse.json();
+    const authData = await authResponse.json() as { access_token: string };
     console.log('Auth successful, access token received');
     const accessToken = authData.access_token;
 

@@ -4,6 +4,7 @@
   "description": "Cloudflare Worker for Rootd waitlist API",
   "main": "src/index.ts",
   "scripts": {
+    "build": "tsc",
     "deploy": "wrangler deploy",
     "dev": "wrangler dev"
   },
