@@ -19,7 +19,7 @@ A modern, conversion-focused landing page for Rootd - the comprehensive dental p
 - **Animations**: Framer Motion
 - **Forms**: React Hook Form + Zod
 - **Icons**: Lucide React
-- **Deployment**: Cloudflare Pages + Workers
+- **Deployment**: Vercel
 
 ## Getting Started
 
@@ -57,45 +57,30 @@ npm start
 
 ## Deployment
 
-### Cloudflare Pages + Workers (Recommended)
+### Vercel (Recommended)
 
-This project is configured for deployment on Cloudflare Pages with a connected Cloudflare Worker for API functionality.
+This project is configured for deployment on Vercel with full server-side functionality.
 
 #### Quick Deploy
 
-1. **Set up secrets** (one-time setup):
+1. **Install Vercel CLI**:
    ```bash
-   ./setup-worker-secrets.sh
+   npm install -g vercel
    ```
 
-2. **Deploy everything**:
+2. **Deploy to production**:
    ```bash
-   ./deploy.sh
+   vercel --prod
    ```
 
-#### Manual Deployment
+#### Using Vercel Dashboard
 
-1. **Deploy the Worker**:
-   ```bash
-   cd worker
-   wrangler deploy
-   ```
-
-2. **Deploy to Pages**:
-   ```bash
-   npm run pages:build
-   wrangler pages deploy ./out --project-name=rootd-app
-   ```
-
-#### Using Cloudflare Dashboard
-
-1. Go to Cloudflare Dashboard → Pages
+1. Go to [vercel.com](https://vercel.com)
 2. Connect your GitHub repository
-3. Set build command: `npm run pages:build`
-4. Set build output directory: `out`
-5. Deploy
+3. Vercel will auto-detect Next.js and configure the build settings
+4. Deploy
 
-For detailed instructions, see [CLOUDFLARE_DEPLOYMENT.md](./CLOUDFLARE_DEPLOYMENT.md)
+For detailed instructions, see [VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)
 
 ## Project Structure
 
@@ -103,7 +88,7 @@ For detailed instructions, see [CLOUDFLARE_DEPLOYMENT.md](./CLOUDFLARE_DEPLOYMEN
 landing-page/
 ├── src/                         # Next.js app source
 │   ├── app/
-│   │   ├── api/waitlist/route.ts    # API endpoint (dev only)
+│   │   ├── api/waitlist/route.ts    # API endpoint
 │   │   ├── globals.css              # Global styles
 │   │   ├── layout.tsx               # Root layout
 │   │   └── page.tsx                 # Main landing page
@@ -116,26 +101,21 @@ landing-page/
 │   │   ├── WaitlistForm.tsx         # Demo request form
 │   │   └── Footer.tsx               # Footer
 │   └── lib/
+│       ├── googleSheets.ts          # Google Sheets integration
 │       └── utils.ts                 # Utility functions
-├── worker/                      # Cloudflare Worker
-│   ├── src/index.ts            # Worker entry point
-│   └── wrangler.toml           # Worker configuration
-├── out/                        # Static build output (generated)
-├── _headers                    # Cloudflare Pages headers
-├── _redirects                  # Cloudflare Pages redirects
-├── deploy.sh                   # Deployment script
-├── setup-worker-secrets.sh     # Secrets setup script
-└── CLOUDFLARE_DEPLOYMENT.md    # Detailed deployment guide
+├── vercel.json                  # Vercel configuration
+├── next.config.ts               # Next.js configuration
+├── package.json                 # Dependencies and scripts
+└── VERCEL_DEPLOYMENT.md         # Detailed deployment guide
 ```
 
 ## API Endpoints
 
 ### POST /api/waitlist
 
-Handles waitlist form submissions via Cloudflare Worker.
+Handles waitlist form submissions via Next.js API route.
 
-**Production URL**: `https://api.rootd.app/api/waitlist`  
-**Development URL**: `/api/waitlist` (Next.js API route)
+**URL**: `/api/waitlist` (works in both development and production)
 
 **Request Body:**
 ```json
@@ -162,8 +142,8 @@ Handles waitlist form submissions via Cloudflare Worker.
 **Features:**
 - Input validation using Zod
 - Google Sheets integration
-- CORS handling
 - Error handling and logging
+- Console logging for debugging
 
 ## Customization
 

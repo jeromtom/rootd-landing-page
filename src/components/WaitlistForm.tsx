@@ -41,36 +41,50 @@ export default function WaitlistForm() {
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
 
   const onSubmit = async (data: FormData) => {
+    console.log('🚀 Form submission started');
+    console.log('📝 Form data:', JSON.stringify(data, null, 2));
+    console.log('🏥 Selected specialties:', selectedSpecialties);
     setIsSubmitting(true);
     
     try {
-      // Use Cloudflare Worker API endpoint
-      const apiUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://waitlist-api.rootd.app/api/waitlist'
-        : '/api/waitlist';
+      // Use local API route for both development and production
+      const apiUrl = '/api/waitlist';
+      console.log('🌐 Making API request to:', apiUrl);
+      
+      const requestBody = {
+        ...data,
+        specialties: selectedSpecialties,
+      };
+      console.log('📦 Request body:', JSON.stringify(requestBody, null, 2));
         
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...data,
-          specialties: selectedSpecialties,
-        }),
+        body: JSON.stringify(requestBody),
       });
+      
+      console.log('📡 API response status:', response.status);
+      console.log('📡 API response headers:', Object.fromEntries(response.headers.entries()));
 
       if (response.ok) {
+        const responseData = await response.json().catch(() => ({}));
+        console.log('✅ API response data:', JSON.stringify(responseData, null, 2));
+        console.log('✅ Form submission successful!');
         setIsSubmitted(true);
       } else {
         const errorData = await response.json().catch(() => ({}));
+        console.log('❌ API error response:', JSON.stringify(errorData, null, 2));
         throw new Error(errorData.message || 'Failed to submit form');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
+      console.error('❌ Error submitting form:', error);
+      console.error('❌ Error details:', JSON.stringify(error, null, 2));
       const errorMessage = error instanceof Error ? error.message : 'There was an error submitting your form. Please try again.';
       alert(errorMessage);
     } finally {
+      console.log('🏁 Form submission process completed');
       setIsSubmitting(false);
     }
   };

@@ -7,19 +7,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "next build",
-    "preview": "npm run pages:build && wrangler pages dev ./out",
-    "deploy:pages": "npm run pages:build && wrangler pages deploy ./out --project-name=rootd-landing-page",
-    "deploy:worker": "cd worker && wrangler deploy",
-    "deploy:all": "npm run deploy:worker && npm run deploy:pages"
+    "vercel:build": "next build",
+    "vercel:deploy": "vercel --prod",
+    "vercel:preview": "vercel"
   },
   "dependencies": {
-    "@cloudflare/next-on-pages": "1.13.15",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-select": "^2.2.6",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/postcss": "^4.1.14",
+    "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.4.21",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

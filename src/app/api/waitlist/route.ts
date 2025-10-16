@@ -14,11 +14,16 @@ const waitlistSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  console.log('🚀 API Route: POST /api/waitlist called');
+  console.log('📅 Timestamp:', new Date().toISOString());
+  
   try {
     const body = await request.json();
+    console.log('📝 Request body received:', JSON.stringify(body, null, 2));
     
     // Validate the request body
     const validatedData = waitlistSchema.parse(body);
+    console.log('✅ Data validation successful:', JSON.stringify(validatedData, null, 2));
     
     // Prepare data for Google Sheets
     const waitlistData = {
@@ -28,50 +33,56 @@ export async function POST(request: NextRequest) {
     };
     
     // Log the submission
-    console.log('New waitlist submission:', waitlistData);
+    console.log('📊 Prepared waitlist data:', JSON.stringify(waitlistData, null, 2));
     
     // Add to Google Sheets (if configured)
+    console.log('📊 Attempting to add to Google Sheets...');
     const sheetsResult = await addToGoogleSheets(waitlistData);
+    console.log('📊 Google Sheets result:', JSON.stringify(sheetsResult, null, 2));
     
     if (!sheetsResult.success) {
-      console.error('Failed to add to Google Sheets:', sheetsResult.error);
+      console.error('❌ Failed to add to Google Sheets:', sheetsResult.error);
       // Continue anyway - don't fail the request if Sheets fails
       // In development, this is expected if Google Sheets is not configured
+    } else {
+      console.log('✅ Successfully added to Google Sheets');
     }
     
     // In a real application, you would also:
     // 1. Send email notification
     // 2. Add to CRM system
     // 3. Send confirmation email to user
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Thank you for your interest! We will be in touch soon.' 
-      },
-      { status: 200 }
-    );
+    
+    const response = { 
+      success: true, 
+      message: 'Thank you for your interest! We will be in touch soon.' 
+    };
+    
+    console.log('✅ Sending success response:', JSON.stringify(response, null, 2));
+    return NextResponse.json(response, { status: 200 });
     
   } catch (error) {
-    console.error('Error processing waitlist submission:', error);
+    console.error('❌ Error processing waitlist submission:', error);
+    console.error('❌ Error details:', JSON.stringify(error, null, 2));
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          message: 'Invalid form data. Please check your inputs and try again.',
-          errors: error.issues 
-        },
-        { status: 400 }
-      );
+      console.log('❌ Validation error - sending 400 response');
+      const errorResponse = { 
+        success: false, 
+        message: 'Invalid form data. Please check your inputs and try again.',
+        errors: error.issues 
+      };
+      console.log('❌ Validation error response:', JSON.stringify(errorResponse, null, 2));
+      return NextResponse.json(errorResponse, { status: 400 });
     }
     
-    return NextResponse.json(
-      { 
-        success: false, 
-        message: 'An error occurred while processing your request. Please try again later.' 
-      },
-      { status: 500 }
-    );
+    console.log('❌ Server error - sending 500 response');
+    const errorResponse = { 
+      success: false, 
+      message: 'An error occurred while processing your request. Please try again later.' 
+    };
+    console.log('❌ Server error response:', JSON.stringify(errorResponse, null, 2));
+    return NextResponse.json(errorResponse, { status: 500 });
   }
 }
 
