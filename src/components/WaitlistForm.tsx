@@ -44,7 +44,12 @@ export default function WaitlistForm() {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch('/api/waitlist', {
+      // Use Cloudflare Worker API endpoint
+      const apiUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://api.rootd.app/api/waitlist'
+        : '/api/waitlist';
+        
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

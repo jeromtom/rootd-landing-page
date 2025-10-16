@@ -19,7 +19,7 @@ A modern, conversion-focused landing page for Rootd - the comprehensive dental p
 - **Animations**: Framer Motion
 - **Forms**: React Hook Form + Zod
 - **Icons**: Lucide React
-- **Deployment**: Vercel
+- **Deployment**: Cloudflare Pages + Workers
 
 ## Getting Started
 
@@ -57,45 +57,85 @@ npm start
 
 ## Deployment
 
-### Vercel (Recommended)
+### Cloudflare Pages + Workers (Recommended)
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy automatically
+This project is configured for deployment on Cloudflare Pages with a connected Cloudflare Worker for API functionality.
 
-### Manual Deployment
+#### Quick Deploy
 
-```bash
-npm run build
-npx vercel --prod
-```
+1. **Set up secrets** (one-time setup):
+   ```bash
+   ./setup-worker-secrets.sh
+   ```
+
+2. **Deploy everything**:
+   ```bash
+   ./deploy.sh
+   ```
+
+#### Manual Deployment
+
+1. **Deploy the Worker**:
+   ```bash
+   cd worker
+   wrangler deploy
+   ```
+
+2. **Deploy to Pages**:
+   ```bash
+   npm run pages:build
+   wrangler pages deploy ./out --project-name=rootd-app
+   ```
+
+#### Using Cloudflare Dashboard
+
+1. Go to Cloudflare Dashboard → Pages
+2. Connect your GitHub repository
+3. Set build command: `npm run pages:build`
+4. Set build output directory: `out`
+5. Deploy
+
+For detailed instructions, see [CLOUDFLARE_DEPLOYMENT.md](./CLOUDFLARE_DEPLOYMENT.md)
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── api/waitlist/route.ts    # API endpoint for form submissions
-│   ├── globals.css              # Global styles
-│   ├── layout.tsx               # Root layout
-│   └── page.tsx                 # Main landing page
-├── components/
-│   ├── ui/                      # shadcn/ui components
-│   ├── Hero.tsx                 # Hero section
-│   ├── ProblemSolution.tsx      # Problem/Solution section
-│   ├── Features.tsx             # Features showcase
-│   ├── Compliance.tsx           # Security & compliance
-│   ├── WaitlistForm.tsx         # Demo request form
-│   └── Footer.tsx               # Footer
-└── lib/
-    └── utils.ts                 # Utility functions
+landing-page/
+├── src/                         # Next.js app source
+│   ├── app/
+│   │   ├── api/waitlist/route.ts    # API endpoint (dev only)
+│   │   ├── globals.css              # Global styles
+│   │   ├── layout.tsx               # Root layout
+│   │   └── page.tsx                 # Main landing page
+│   ├── components/
+│   │   ├── ui/                      # shadcn/ui components
+│   │   ├── Hero.tsx                 # Hero section
+│   │   ├── ProblemSolution.tsx      # Problem/Solution section
+│   │   ├── Features.tsx             # Features showcase
+│   │   ├── Compliance.tsx           # Security & compliance
+│   │   ├── WaitlistForm.tsx         # Demo request form
+│   │   └── Footer.tsx               # Footer
+│   └── lib/
+│       └── utils.ts                 # Utility functions
+├── worker/                      # Cloudflare Worker
+│   ├── src/index.ts            # Worker entry point
+│   └── wrangler.toml           # Worker configuration
+├── out/                        # Static build output (generated)
+├── _headers                    # Cloudflare Pages headers
+├── _redirects                  # Cloudflare Pages redirects
+├── deploy.sh                   # Deployment script
+├── setup-worker-secrets.sh     # Secrets setup script
+└── CLOUDFLARE_DEPLOYMENT.md    # Detailed deployment guide
 ```
 
 ## API Endpoints
 
 ### POST /api/waitlist
 
-Handles waitlist form submissions.
+Handles waitlist form submissions via Cloudflare Worker.
+
+**Production URL**: `https://api.rootd.app/api/waitlist`  
+**Development URL**: `/api/waitlist` (Next.js API route)
 
 **Request Body:**
 ```json
@@ -105,6 +145,8 @@ Handles waitlist form submissions.
   "email": "string",
   "phone": "string",
   "chairs": "string",
+  "dentists": "string",
+  "specialties": ["string"],
   "message": "string (optional)"
 }
 ```
@@ -113,9 +155,15 @@ Handles waitlist form submissions.
 ```json
 {
   "success": true,
-  "message": "Thank you for your interest!"
+  "message": "Thank you for your interest! We will be in touch soon."
 }
 ```
+
+**Features:**
+- Input validation using Zod
+- Google Sheets integration
+- CORS handling
+- Error handling and logging
 
 ## Customization
 

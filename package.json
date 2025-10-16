@@ -7,9 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy .vercel/output/static --project-name=rootd-app"
+    "pages:build": "next build",
+    "preview": "npm run pages:build && wrangler pages dev ./out",
+    "deploy:pages": "npm run pages:build && wrangler pages deploy ./out --project-name=rootd-landing-page",
+    "deploy:worker": "cd worker && wrangler deploy",
+    "deploy:all": "npm run deploy:worker && npm run deploy:pages"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "1.13.15",
