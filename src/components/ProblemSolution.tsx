@@ -19,7 +19,7 @@ export default function ProblemSolution() {
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Multi-specialty dental practices across India are struggling with outdated systems. 
-            Here&apos;s how Rootd transforms your practice.
+            Here&apos;s how rootd.app transforms your practice.
           </p>
         </motion.div>
 
@@ -93,7 +93,7 @@ export default function ProblemSolution() {
             <div className="text-center lg:text-left">
               <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-green-600 mb-3 sm:mb-4 flex items-center justify-center lg:justify-start">
                 <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 mr-2 flex-shrink-0" />
-                Rootd Solution
+                rootd.app Solution
               </h3>
             </div>
 
@@ -152,7 +152,7 @@ export default function ProblemSolution() {
           <div className="bg-blue-600 text-white p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl">
             <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4">Ready to Transform Your Practice?</h3>
             <p className="text-blue-100 mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-              Join modern dental clinics using Rootd to streamline their multi-specialty operations 
+              Join modern dental clinics using rootd.app to streamline their multi-specialty operations 
               and deliver exceptional patient experiences.
             </p>
             <button 

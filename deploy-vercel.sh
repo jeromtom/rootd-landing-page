@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Rootd Landing Page - Vercel Deployment Script
+# rootd.app Landing Page - Vercel Deployment Script
 # This script deploys the landing page to Vercel
 
 set -e  # Exit on any error
 
-echo "🚀 Starting Rootd deployment to Vercel..."
+echo "🚀 Starting rootd.app deployment to Vercel..."
 
 # Colors for output
 RED='\033[0;31m'

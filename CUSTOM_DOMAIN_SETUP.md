@@ -1,6 +1,6 @@
 # Custom Domain Setup for rootd.app
 
-Your Rootd landing page is now deployed on Cloudflare! Here's how to connect your `rootd.app` domain:
+Your rootd.app landing page is now deployed on Cloudflare! Here's how to connect your `rootd.app` domain:
 
 ## Current Deployment Status
 
@@ -205,4 +205,4 @@ If you encounter any issues:
 3. Test with the direct URLs first
 4. Check worker logs for API issues
 
-Your Rootd landing page is now live and ready to collect waitlist signups! 🎉
+Your rootd.app landing page is now live and ready to collect waitlist signups! 🎉

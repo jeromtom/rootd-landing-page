@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -28,6 +28,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function WaitlistForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formSectionRef = useRef<HTMLElement>(null);
 
   const {
     register,
@@ -39,6 +40,16 @@ export default function WaitlistForm() {
   });
 
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
+
+  // Scroll to form section when thank you message is shown
+  useEffect(() => {
+    if (isSubmitted && formSectionRef.current) {
+      formSectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  }, [isSubmitted]);
 
   const onSubmit = async (data: FormData) => {
     console.log('🚀 Form submission started');
@@ -153,7 +164,7 @@ export default function WaitlistForm() {
 
   if (isSubmitted) {
     return (
-    <section id="waitlist-form" className="py-12 sm:py-16 lg:py-20 px-4 bg-white">
+    <section ref={formSectionRef} id="waitlist-form" className="py-12 sm:py-16 lg:py-20 px-4 bg-white">
       <div className="max-w-2xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -168,14 +179,14 @@ export default function WaitlistForm() {
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8">
             We&apos;ve received your information and will be in touch soon to schedule your personalized demo. 
-            Our team is excited to show you how Rootd can transform your multi-specialty dental practice.
+            Our team is excited to show you how rootd.app can transform your multi-specialty dental practice.
           </p>
           <div className="bg-blue-50 p-4 sm:p-6 rounded-lg">
             <h3 className="font-semibold text-blue-900 mb-2 text-sm sm:text-base">What happens next?</h3>
             <div className="text-left space-y-1 sm:space-y-2 text-blue-800 text-xs sm:text-sm">
               <p>• We&apos;ll review your practice requirements</p>
               <p>• Schedule a personalized demo within 24 hours</p>
-              <p>• Show you how Rootd fits your specific needs</p>
+              <p>• Show you how rootd.app fits your specific needs</p>
               <p>• Answer any questions about implementation</p>
             </div>
           </div>
@@ -186,7 +197,7 @@ export default function WaitlistForm() {
   }
 
   return (
-    <section id="waitlist-form" className="py-8 sm:py-12 lg:py-20 px-4 bg-white">
+    <section ref={formSectionRef} id="waitlist-form" className="py-8 sm:py-12 lg:py-20 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -215,7 +226,7 @@ export default function WaitlistForm() {
               <CardHeader className="p-3 sm:p-4 lg:p-6">
                 <CardTitle className="text-lg sm:text-xl lg:text-2xl text-center">Join Our Waitlist</CardTitle>
                 <p className="text-center text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed">
-                  Get early access to Rootd and a personalized demo tailored to your practice needs
+                  Get early access to rootd.app and a personalized demo tailored to your practice needs
                 </p>
               </CardHeader>
               <CardContent className="p-3 sm:p-4 lg:p-6">
@@ -426,7 +437,7 @@ export default function WaitlistForm() {
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Early Access & Demo</h4>
                     <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                      Get early access to Rootd and a personalized demo tailored to your multi-specialty practice.
+                      Get early access to rootd.app and a personalized demo tailored to your multi-specialty practice.
                     </p>
                   </div>
                 </div>

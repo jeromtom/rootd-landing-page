@@ -1,4 +1,4 @@
-# Rootd Landing Page - Deployment Status
+# rootd.app Landing Page - Deployment Status
 
 ## ✅ Successfully Deployed
 
@@ -75,4 +75,4 @@ curl -X POST https://rootd-waitlist-api.dev-jeromtom.workers.dev/api/waitlist \
   -d '{"clinicName":"Test","contactName":"Test","email":"test@example.com","phone":"1234567890","chairs":"1","dentists":"1"}'
 ```
 
-Your Rootd landing page is now correctly deployed and ready for custom domain setup! 🎉
+Your rootd.app landing page is now correctly deployed and ready for custom domain setup! 🎉

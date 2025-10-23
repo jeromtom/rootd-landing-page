@@ -1,6 +1,6 @@
 # Vercel Deployment Guide
 
-This guide will help you deploy the Rootd landing page to Vercel with full functionality.
+This guide will help you deploy the rootd.app landing page to Vercel with full functionality.
 
 ## Prerequisites
 

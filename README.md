@@ -1,6 +1,6 @@
-# Rootd Landing Page
+# rootd.app Landing Page
 
-A modern, conversion-focused landing page for Rootd - the comprehensive dental practice management software for Indian clinics.
+A modern, conversion-focused landing page for rootd.app - the comprehensive dental practice management software for Indian clinics.
 
 ## Features
 
@@ -214,7 +214,7 @@ The landing page includes:
 
 ## License
 
-This project is proprietary software for Rootd.
+This project is proprietary software for rootd.app.
 
 ## Support
 

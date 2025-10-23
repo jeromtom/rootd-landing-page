@@ -17,7 +17,7 @@ This guide will help you set up Google Sheets integration to store waitlist data
 2. Click "Create Credentials" > "Service Account"
 3. Fill in the details:
    - Name: `rootd-waitlist-service`
-   - Description: `Service account for Rootd waitlist data collection`
+   - Description: `Service account for rootd.app waitlist data collection`
 4. Click "Create and Continue"
 5. Skip the optional steps and click "Done"
 
@@ -34,7 +34,7 @@ This guide will help you set up Google Sheets integration to store waitlist data
 
 1. Go to [Google Sheets](https://sheets.google.com/)
 2. Create a new spreadsheet
-3. Name it "Rootd Waitlist Data"
+3. Name it "rootd.app Waitlist Data"
 4. Copy the Sheet ID from the URL:
    - URL looks like: `https://docs.google.com/spreadsheets/d/SHEET_ID_HERE/edit`
    - The SHEET_ID_HERE is what you need

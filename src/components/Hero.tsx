@@ -22,7 +22,7 @@ export default function Hero() {
                 <span className="text-blue-600">Multi-Dentist Dental Clinics</span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
-                Transform your dental practice with Rootd&apos;s comprehensive practice management software. 
+                Transform your dental practice with rootd.app&apos;s comprehensive practice management software. 
                 Secure EHR, multi-chair scheduling for specialist teams, digital clinical workflow, and seamless billing - 
                 all DPDP compliant and built for India.
               </p>
@@ -99,18 +99,15 @@ export default function Hero() {
                   {Array.from({ length: 16 }).map((_, i) => (
                     <div 
                       key={i} 
-                      className={`h-6 sm:h-8 lg:h-12 rounded-md sm:rounded-lg flex items-center justify-center text-xs font-medium ${
+                      className={`h-8 sm:h-8 lg:h-12 rounded-md sm:rounded-lg flex items-center justify-center text-xs font-medium ${
                         i % 8 === 0 ? 'bg-blue-100 text-blue-700' : 
                         i % 7 === 0 ? 'bg-green-100 text-green-700' :
                         i % 6 === 0 ? 'bg-purple-100 text-purple-700' :
                         'bg-gray-100 text-gray-500'
                       }`}
                     >
-                      <span className="hidden sm:inline">
+                      <span className="text-[8px] sm:text-xs leading-tight">
                         {i % 8 === 0 ? 'Dr. Alina' : i % 7 === 0 ? 'Dr. Priya' : i % 6 === 0 ? 'Dr. Annet' : ''}
-                      </span>
-                      <span className="sm:hidden text-xs">
-                        {i % 8 === 0 ? 'A' : i % 7 === 0 ? 'P' : i % 6 === 0 ? 'An' : ''}
                       </span>
                     </div>
                   ))}

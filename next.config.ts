@@ -6,9 +6,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: false, // Enable Vercel's image optimization
   },
-  experimental: {
-    esmExternals: false,
-  },
   // Enable server-side features for Vercel
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
